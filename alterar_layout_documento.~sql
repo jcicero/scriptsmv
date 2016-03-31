@@ -1,0 +1,17 @@
+--ALTERAÇÃO DE LAYOUT DE DOCUMENTO DO EDITOR
+
+--localizar paciente e pegar o CD_DOCUMENTO CLINICO
+select * from pw_documento_clinico p where p.cd_paciente=774695 and p.dh_referencia='21/02/2014';
+
+--lcoaliza o CD_EDITOR_REGISTRO relacionado ao documento
+select * from pw_editor_clinico ec where ec.cd_documento=14 and ec.cd_documento_clinico IN (45204);
+
+--alterar o layout de acordo com o CD_REGISTRO lcoalizado anteriormente
+select * from editor_registro where cd_registro IN (2091) for update;
+
+--select * from pre_med p where p.cd_atendimento=316396;
+--select * from editor_layout e where e.cd_layout=352;-- for update
+--select * from editor_versao_documento ed where ed.cd_documento=14;
+--select * from editor_documento doc where doc.cd_documento=14;
+--select * from editor_registro_campo;
+---151

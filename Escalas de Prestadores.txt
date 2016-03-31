@@ -1,0 +1,44 @@
+SELECT ESCALA_CENTRAL.CD_ESCALA_CENTRAL COD_ESCALA,
+
+       to_char(ESCALA_CENTRAL.HR_INICIO,'hh24:mi:ss') HORA_INICIO,
+       to_char(ESCALA_CENTRAL.HR_FIM,'hh24:mi:ss') HORA_FIM,
+       TO_CHAR(TO_DATE('01/01/2000','DD/MM/YYYY')+ ESCALA_CENTRAL.TP_DIA_SEMANA , 'DAY', 'NLS_LANGUAGE=BRAZILIAN PORTUGUESE')DIA_SEMANA,
+       ESCALA_CENTRAL.QT_ENCAIXE QTD_ENCAIXE_PERMITIDOS,
+       --ESCALA_CENTRAL.QT_ATENDIMENTO QTD_ATENDIMENTO_PERMITIDOS,
+       escala_central_ser_tipo.qt_atendimento QTD_ATENDIMENTO_PERMITIDOS,
+       DECODE(ESCALA_CENTRAL.SN_ATENDE_FERIADO,
+       'S', 'SIM',
+       'N', 'NAO',
+       ESCALA_CENTRAL.SN_ATENDE_FERIADO) ATENDE_FERIADO,
+       ESCALA_CENTRAL.CD_PRESTADOR COD_PRESTADOR,
+       PRESTADOR.NM_PRESTADOR NM_PRESTADOR,
+       ESCALA_CENTRAL.CD_UNIDADE_ATENDIMENTO COD_UNIDADE,
+       UNIDADE_ATENDIMENTO.DS_UNIDADE_ATENDIMENTO DS_UNIDADE,
+       ESCALA_CENTRAL.CD_SETOR COD_SETOR,
+       SETOR.NM_SETOR DS_SETOR,
+       tip_mar.ds_tip_mar TIPO_DE_MARCAÇÃO,
+       item_agendamento.ds_item_agendamento item_agendamento ,
+       ser_dis.ds_ser_dis SERVIÇO
+  FROM DBAMV.ESCALA_CENTRAL,
+       DBAMV.PRESTADOR,
+       DBAMV.RECURSO_CENTRAL,
+       DBAMV.UNIDADE_ATENDIMENTO,
+       DBAMV.SETOR,
+       dbamv.escala_central_item_agenda,
+       dbamv.escala_central_ser_tipo,
+       dbamv.item_agendamento,
+       dbamv.ser_dis,
+       dbamv.tip_mar
+ WHERE ESCALA_CENTRAL.CD_PRESTADOR = PRESTADOR.CD_PRESTADOR(+)
+   AND ESCALA_CENTRAL.CD_RECURSO_CENTRAL = RECURSO_CENTRAL.CD_RECURSO_CENTRAL(+)
+   AND ESCALA_CENTRAL.CD_UNIDADE_ATENDIMENTO = UNIDADE_ATENDIMENTO.CD_UNIDADE_ATENDIMENTO(+)
+   AND ESCALA_CENTRAL.CD_SETOR = SETOR.CD_SETOR
+   and escala_central_ser_tipo.cd_escala_central = ESCALA_CENTRAL.Cd_Escala_Central
+   and escala_central_item_agenda.cd_escala_central = ESCALA_CENTRAL.Cd_Escala_Central
+   and escala_central_item_agenda.cd_item_agendamento = item_agendamento.cd_item_agendamento
+   and escala_central_ser_tipo.cd_ser_dis = ser_dis.cd_ser_dis
+   and escala_central_ser_tipo.cd_tip_mar = tip_mar.cd_tip_mar
+   --and prestador.cd_prestador in (434,852)
+   and ESCALA_CENTRAL.TP_ESCALA = 'A'
+   and ESCALA_CENTRAL.SN_ATIVO = 'S'
+   ORDER BY 1

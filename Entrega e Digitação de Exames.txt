@@ -1,0 +1,14 @@
+select * from ged_documento t
+where t.cd_documento = 121772
+
+SELECT l.nm_usuario usuario_digitação
+  FROM DBAMV.laudo_rx l
+ WHERE l.cd_ped_rx = 46565
+
+
+/*select * from dbamv.laudo_rx l,ged_documento t 
+where  l..cd_ped_rx =  
+and l.cd_ped_rx = 46565*/
+
+
+select * from dbamv.paciente p where p.cd_paciente = 349639

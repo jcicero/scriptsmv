@@ -1,0 +1,405 @@
+select reg.regiao, count(reg.regiao) qtd from (
+
+SELECT '01ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+         WHERE atendime.cd_paciente = paciente.cd_paciente
+           AND atendime.cd_ori_ate = ori_ate.cd_ori_ate
+           AND atendime.cd_convenio = convenio.cd_convenio
+           AND atendime.cd_con_pla = con_pla.cd_con_pla(+)
+           AND atendime.cd_prestador = prestador.cd_prestador(+)
+           AND atendime.cd_convenio = con_pla.cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime . dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7713,7849,7879,7862,7823,7866,7818,7719,7774,7718,7842,7813)
+           /*ATALAIA,BARRA DE SANTO ANTONIO,BARRA DE SAO MIGUEL,COQUEIRO SECO,MACEIO,MARECHAL DEODORO,MESSIAS,PARIPUEIRA,PILAR,RIO LARGO,SANTA LUZIA DO NORTE,SATUBA*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'   --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+
+Union
+       
+SELECT '02ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7873,7875,7843,7856,7795,7855,7794,7816,7822)
+           /*JACUIPE,JAPARATINGA,MARAGOGI,MATRIZ DE CAMARAGIBE,PASSO DE CAMARAGIBE,PORTO CALVO,PORTO DE PEDRAS,SAO LUIS DO QUITUNDE,SAO MIGUEL DOS MILAGRES*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '03ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7708,7751,7761,7874,7864,9964,9990)
+           /*ANADIA,BOCA DA MATA,CAMPO ALEGRE,ROTEIRO,SAO MIGUEL DOS CAMPOS,JEQUIA DA PRAIA,JEQUIA DA PRAIA*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '04ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7791,7847,7848,7857,7870,7716)
+           /*IGREJA NOVA,PENEDO,PIACABUCU,PORTO REAL DO COLEGIO,SAO BRAS*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '05ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7876,7830,7772,7762,7782,7802,7788,7889,7796,7777,7712,7886,7812,7745)
+           /*ARAPIRACA,CAMPO GRANDE,CRAIBAS,FEIRA GRANDE,GIRAU DO PONCIANO,JARAMATAIA,LAGOA DA CANOA,COITE DO NOIA,LIMOEIRO DE ANADIA,OLHO D'AGUA GRANDE,SAO SEBASTIAO,TAQUARANA,TRAIPU*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '06ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7747,7744,7793,7837,7825,7840,7872)
+           /*BATALHA,BELO MONTE,JACARE DOS HOMENS,MONTEIROPOLIS,PALESTINA,PAO DE ACUCAR,SAO JOSE DA TAPERA*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '07ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7851,7833,7705,7792,7841,7821,7778)
+           /*AGUA BRANCA,DELMIRO GOUVEIA,INHAPI,MATA GRANDE,OLHO D'AGUA DO CASADO,PARICONHA,PIRANHAS*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '08ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7831,7835,7779,7769,7867,7880,7854,7817,7836,7765)
+           /*CANAPI,CARNEIROS,DOIS RIACHOS,MARAVILHA,OLHO D'AGUA DAS FLORES,OLIVENCA,OURO BRANCO,POCO DAS TRINCHEIRAS,SANTANA DO IPANEMA,SENADOR RUI PALMEIRA*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '09ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7814,7824,7781,7755,7839,7790,7859,7746,7885,7819,7815)
+           /*BELEM,CACIMBINHAS,ESTRELA DE ALAGOAS,IGACI,MAJOR ISIDORO,MAR VERMELHO,MARIBONDO,MINADOR DO NEGRAO,PALMEIRA DOS INDIOS,QUEBRANGULO,TANQUE D'ARCA*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '10ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7771,7846,7892,7850,7757,7768)
+           /*CAJUEIRO,CAPELA,CHA PRETA,PAULO JACINTO,PINDOBA,VICOSA*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '11ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7828,7754,7868,7890,7871,7789,7766)
+           /*BRANQUINHA,IBATEGUARA,MURICI,SANTANA DO MUNDAU,SAO JOSE DA LAJE,UNIAO DOS PALMARES*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+union
+
+SELECT '12ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (9988,7785,7798,7773,7829,7760,7799)
+           /*CAMPESTRE,COLONIA LEOPOLDINA,FLEXEIRAS,JOAQUIM GOMES,JUNDIA,NOVO LINO,FLEXEIRAS*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+
+union
+
+SELECT '13ª MicroRegião' regiao, 
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and cidade.cd_cidade in (7800,7888,7775,7776,7783,7852,7858)
+           /*CORURIPE,CORURIPE DA CAL,FELIZ DESERTO,JUNQUEIRO,TEOTONIO VILELA*/
+              and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+              and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+
+union
+
+SELECT '14 Outras' regiao,
+       especialid.ds_especialid, 
+       paciente.cd_paciente, 
+       atendime.cd_atendimento cd_atendimento, 
+       TO_CHAR(atendime . dt_atendimento, 'dd/mm/yyyy') || ' ' || TO_CHAR(atendime . hr_atendimento, 'HH24:MI') data, 
+       paciente.nm_paciente nm_paciente, convenio.nm_convenio nm_convenio, ori_ate.ds_ori_ate ds_ori_ate, prestador.nm_prestador nm_prestador, '1' Qtd
+FROM atendime, paciente, ori_ate, convenio, con_pla, prestador, especialid, cidade
+
+WHERE atendime . cd_paciente = paciente . cd_paciente
+           AND atendime . cd_ori_ate = ori_ate . cd_ori_ate
+           AND atendime . cd_convenio = convenio . cd_convenio
+           AND atendime . cd_con_pla = con_pla . cd_con_pla(+)
+           AND atendime . cd_prestador = prestador . cd_prestador(+)
+           AND atendime . cd_convenio = con_pla . cd_convenio(+)
+           and especialid . cd_especialid = atendime.cd_especialid(+)
+           and cidade.cd_cidade(+) = paciente.cd_cidade
+           AND atendime.cd_atendimento_pai IS NULL
+           AND trunc(atendime.dt_atendimento) between '01/10/2014' and '31/10/2014'
+           and ((especialid.cd_especialid in #especialidade# and 0 not in #especialidade#) or 0 in #especialidade#)
+           and ((ori_ate.cd_ori_ate in #origem# and 0 not in #origem#) or 0 in #origem#)
+         and (cidade.cd_cidade not in (7713,7849,7879,7862,7823,7866,7818,7719,7774,7718,7842,7813,
+                                        7873,7875,7843,7856,7795,7855,7794,7816,7822,7708,7751,7761,
+                                        7874,7864,9964,9990,7791,7847,7848,7857,7870,7876,7830,7762,
+                                        7782,7802,7788,7889,7796,7777,7712,7886,7812,7747,7744,7793,
+                                        7837,7825,7840,7872,7851,7833,7705,7792,7841,7821,7778,7831,
+                                        7835,7779,7769,7867,7880,7854,7817,7836,7765,7814,7824,7781,
+                                        7755,7839,7790,7859,7746,7885,7819,7815,7771,7846,7892,7850,
+                                        7757,7768,7828,7754,7868,7890,7871,7789,9988,7785,7798,7773,
+                                        7829,7760,7799,7800,7888,7775,7776,7783,7772,7766,7716,7852,
+                                        7858,7745) or paciente.cd_cidade is null)
+           and atendime . Cd_Multi_Empresa = '1'
+           AND atendime.tp_atendimento = 'A'
+              --And Atendime.Cd_Cid Is Null
+           AND Atendime.CD_MULTI_EMPRESA = '1'
+
+) reg    
+group by reg.regiao 
+order by 1 asc       

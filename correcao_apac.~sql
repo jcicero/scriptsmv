@@ -1,0 +1,7 @@
+select a.cd_paciente,a.* from apac a where 
+a.cd_fat_sia=54
+--and a.cd_ori_ate=11
+and a.cd_remessa=57
+and a.cd_paciente in (762195,748783,641843,753214,748728) for update
+
+--select * from apac a where a.nr_apac=2713600022034 for update

@@ -1,0 +1,17 @@
+select * from ent_pro e where e.nr_documento='481611';-- for update;
+select * from ent_pro e where e.cd_ent_pro in ('5250') for update;
+
+select * from itent_pro it where it.cd_produto=988 and it.cd_ent_pro='4570'
+
+
+
+select * from lot_pro l where l.cd_lote in ('NLTT00167M','058119') and l.cd_produto=987 for update;
+select * from lot_pro l where l.cd_lote in ('123SA','61212355') and l.cd_produto=988 for update;
+select * from lot_pro l where l.cd_lote in ('232650') and l.cd_produto=511 for update;
+select * from lot_pro l where l.cd_produto=511 for update;
+--232650  280000.0000
+select * from itent_pro it where it.cd_ent_pro in ('5194','5120') for update;
+
+--select * from 265,00 N 1 
+
+select * from duplicata d where d.nr_documento in ('39172') for update

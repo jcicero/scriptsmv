@@ -1,0 +1,468 @@
+select ('<font size="2">'||lt.ds_leito||'</font>') leito   
+       --,null codpaciente
+       ,null atendimento
+       ,null nomedopaciente
+       ,null medico
+       ,null internadoa
+       --,null AV
+       ,NULL UTI
+       ,NULL USG
+       ,NULL TC
+       ,NULL SANGUE
+       ,NULL RX
+       ,NULL QUIMIOTERAPIA
+       ,NULL OUTROSEXAMES
+       ,NULL NEFROLOGIA
+       ,NULL EDA
+       ,NULL CACON
+       ,NULL SEMIACAMADO
+       ,null ACAMADO 
+       ,null PREMED
+       ,null EVOMED
+       ,null PREENF
+       ,null EVOENF     
+       ,(case when
+              lt.tp_ocupacao = 'I'  then
+                  '<img src="/portal/bi/img/dash/ico_leitoinfectado.gif" border=0>'
+               when
+              lt.tp_ocupacao = 'M'  then  
+                  '<img src="/portal/bi/img/dash/ico_manutencao.gif" border=0>'
+               when
+              lt.tp_ocupacao = 'V'  then
+                  '<img src="/portal/bi/img/dash/ico_leitovago.gif" border=0>'
+                when               
+              lt.tp_ocupacao = 'L'  then     
+                  '<img src="/portal/bi/img/dash/ico_limpeza.gif" border=0>'
+                when
+              lt.tp_ocupacao = 'R'  then
+                  '<img src="/portal/bi/img/dash/ico_reserva.gif" border=0>' 
+                when
+              lt.tp_ocupacao = 'A'  then
+                  '<img src="/portal/bi/img/dash/ico_acompanhante.gif" border=0>'                      
+          end
+         )status         
+from dbamv.leito lt
+where lt.tp_situacao = 'A'
+and lt.cd_unid_int = #unidadedeinternacao#
+and lt.tp_ocupacao not in ('O')
+union
+select ('<font size="2">'||leito||'</font>')       leito  
+      --, ('<font size="2">'||cdpaciente||'</font>')  codpaciente
+      , ('<font size="2">'||atendimento||'</font>') atendimento
+      , ('<font size="2">'||paciente||'</font>')    nomedopaciente
+      , ('<font size="2">'||prestador||'</font>')   medico   
+      , ('<font size="2">'||internadoa||'</font>')  internadoa
+      /*, (case 
+             when AV = '1' then    
+                '<img src="/portal/bi/img/dash/ico_leitovago.gif" border=0>'
+         end
+         )AV*/
+      /*, (case 
+             when UTI = '1' then    
+                '<img src="/portal/bi/img/dash/UTI.png" border=0>'
+         end
+         )UTI*/
+      , (case 
+             when
+               UTI = '1' then    
+                '<img src="/portal/bi/img/dash/UTI.png" border=0>'
+             when RETORNOUDAUTI = '1' then ' '
+         end
+         )UTI
+      , (case 
+             when USG = '1' then    
+                '<img src="/portal/bi/img/dash/USG.png" border=0>'
+         end
+         )USG
+      , (case 
+             when TC = '1' then    
+                '<img src="/portal/bi/img/dash/TC.png" border=0>'
+         end
+         )TC
+      , (case 
+             when SANGUE = '1' then    
+                '<img src="/portal/bi/img/dash/Sangue.png" border=0>'
+         end
+         )SANGUE
+      , (case 
+             when RX = '1' then    
+                '<img src="/portal/bi/img/dash/RX.png" border=0>'
+         end
+         )RX
+      , (case 
+             when QUIMIOTERAPIA = '1' then    
+                '<img src="/portal/bi/img/dash/Quimioterapia.png" border=0>'
+         end
+         )QUIMIOTERAPIA
+      , (case 
+             when OUTROSEXAMES = '1' then    
+                '<img src="/portal/bi/img/dash/Outros exames.png" border=0>'
+         end
+         )OUTROSEXAMES
+      , (case 
+             when NEFROLOGIA = '1' then    
+                '<img src="/portal/bi/img/dash/Nefrologia.png" border=0>'
+         end
+         )NEFROLOGIA
+      , (case 
+             when EDA = '1' then    
+                '<img src="/portal/bi/img/dash/EDA.png" border=0>'
+         end
+         )EDA
+      , (case 
+             when CACON = '1' then    
+                '<img src="/portal/bi/img/dash/CACON.png" border=0>'
+         end
+         )CACON   
+      , (case 
+             when SEMIACAMADO = '1' then    
+                '<img src="/portal/bi/img/dash/SemiAcamado.png" border=0>'
+         end
+         )SEMIACAMADO
+      , (case 
+             when ACAMADO = '1' then    
+                '<img src="/portal/bi/img/dash/Acamado1.png" border=0>'
+         end
+         )ACAMADO   
+      , (case 
+             when PREMED = '1' then    
+                '<img src="/portal/bi/img/dash/prescricao.png" border=0>'
+         end
+         )PREMED
+      , (case 
+             when EVOMED = '1' then    
+                '<img src="/portal/bi/img/dash/evolucao.png" border=0>'
+         end
+         )EVOMED      
+      , (case 
+             when PREENF = '1' then    
+                '<img src="/portal/bi/img/dash/cuidados_enfermagem.png" border=0>'
+         end
+         )PREENF
+      , (case 
+             when EVOENF = '1' then    
+                '<img src="/portal/bi/img/dash/diagnostico_enfermagem.png" border=0>'
+         end
+         )EVOENF
+      , (case 
+              when status1 = 'S' then    
+                '<img src="/portal/bi/img/dash/alta_medica1.png" border=0>'
+              when   
+              status = 'O' then 
+                  '<img src="/portal/bi/img/dash/ico_leitoocupado.gif" border=0>'
+               when
+              status = 'I'  then
+                  '<img src="/portal/bi/img/dash/ico_leitoinfectado.gif" border=0>'
+               when
+              status = 'M'  then  
+                  '<img src="/portal/bi/img/dash/ico_manutencao.gif" border=0>'
+               when
+              status = 'V'  then
+                  '<img src="/portal/bi/img/dash/ico_leitovago.gif" border=0>'
+                when               
+              status = 'L'  then     
+                  '<img src="/portal/bi/img/dash/ico_limpeza.gif" border=0>'
+                when
+              status = 'R'  then
+                  '<img src="/portal/bi/img/dash/ico_reserva.gif" border=0>' 
+                when
+              status = 'A'  then
+                  '<img src="/portal/bi/img/dash/ico_acompanhante.gif" border=0>'                      
+          end
+         )status
+ from 
+ (
+Select  l.ds_leito leito,
+       pa.cd_paciente cdpaciente,
+       a.cd_atendimento atendimento,
+       pa.nm_paciente paciente,
+       p.nm_mnemonico prestador,
+       (round((sysdate-1)-trunc(a.dt_atendimento))||' '||'dia(s)') internadoa 
+       ,(select '1'
+          from   dbamv.age_cir agenda
+              ,dbamv.aviso_cirurgia aviso
+        where  agenda.cd_aviso_cirurgia(+) = aviso.cd_aviso_cirurgia
+         and  trunc(nvl(agenda.dt_inicio_age_cir,aviso.dt_aviso_cirurgia)) = trunc(sysdate)
+        and  aviso.cd_atendimento = a.cd_atendimento
+        and  aviso.tp_situacao = 'G') AV
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27674
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27674
+                                                    and b.sn_cancelado = 'N')
+        )RETORNOUDAUTI
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27675
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27675
+                                                    and b.sn_cancelado = 'N')
+        )UTI
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27676
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27676
+                                                    and b.sn_cancelado = 'N')
+        )USG
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27677
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27677
+                                                    and b.sn_cancelado = 'N')
+        )TC
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27678
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27678
+                                                    and b.sn_cancelado = 'N')
+        )SANGUE
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27679
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27679
+                                                    and b.sn_cancelado = 'N')
+        )RX
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27680
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27680
+                                                    and b.sn_cancelado = 'N')
+        )QUIMIOTERAPIA
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27681
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27681
+                                                    and b.sn_cancelado = 'N')
+        )OUTROSEXAMES
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27684
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27684
+                                                    and b.sn_cancelado = 'N')
+        )NEFROLOGIA
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27682
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27682
+                                                    and b.sn_cancelado = 'N')
+        )EDA
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27683
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27683
+                                                    and b.sn_cancelado = 'N')
+        )cacon
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27671
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27671
+                                                    and b.sn_cancelado = 'N')
+        )acamado
+       ,(select distinct '1'
+                    from dbamv.itpre_med it,
+                         dbamv.pre_med p, 
+                         dbamv.atendime au
+                   where it.cd_pre_med   = p.cd_pre_med
+                     and p.cd_atendimento = a.cd_atendimento
+                     and it.cd_tip_presc = 27672
+                     and p.tp_pre_med             = 'E'
+                     and p.cd_pre_med = (select max(at.cd_pre_med) 
+                                                    from dbamv.pre_med at,
+                                                    dbamv.itpre_med b,
+                                                    dbamv.tip_presc c
+                                                    where at.cd_atendimento = au.cd_atendimento
+                                                    and at.cd_pre_med = b.cd_pre_med
+                                                    and c.cd_tip_presc = b.cd_tip_presc
+                                                    and c.cd_tip_presc = 27672
+                                                    and b.sn_cancelado = 'N')
+        )semiacamado            
+       ,(SELECT distinct '1' 
+                   FROM Dbamv.Pre_Med
+                   WHERE Pre_Med.Cd_Atendimento    = a.Cd_Atendimento
+                   AND Trunc(Pre_Med.Dt_Referencia) = trunc(sysdate)
+                   AND TP_PRE_MED = 'M'
+                   AND pre_med.sn_fechado = 'S')PREMED
+       ,(SELECT distinct '1' FROM Dbamv.Pre_Med
+                   WHERE Pre_Med.Cd_Atendimento    = a.Cd_Atendimento
+                   AND Trunc(Pre_Med.Dt_Referencia) = Trunc(sysdate)
+                   AND Ds_Evolucao IS NOT null --VERIFICA SE EXISTE UMA EVOLUCAO TEXTO LIVRE NO DIA
+                   AND TP_PRE_MED = 'M'
+                   AND pre_med.sn_fechado = 'S')EVOMED                 
+       ,(SELECT distinct '1' 
+                   FROM Dbamv.Pre_Med
+                   WHERE Pre_Med.Cd_Atendimento    = a.Cd_Atendimento
+                   AND Trunc(Pre_Med.Dt_Referencia) = trunc(sysdate)
+                   AND TP_PRE_MED = 'E'
+                   AND pre_med.sn_fechado = 'S')PREENF
+       ,(SELECT distinct '1' FROM Dbamv.Pre_Med
+                   WHERE Pre_Med.Cd_Atendimento    = a.Cd_Atendimento
+                   AND Trunc(Pre_Med.Dt_Referencia) = Trunc(sysdate)
+                   AND Ds_Evolucao IS NOT null --VERIFICA SE EXISTE UMA EVOLUCAO TEXTO LIVRE NO DIA
+                   AND TP_PRE_MED = 'E'
+                   AND pre_med.sn_fechado = 'S')EVOENF
+       ,(select distinct '1'
+                   from dbamv.subs_pac s 
+                   where s.cd_paciente = a.cd_paciente
+                                       )alergico
+       ,l.tp_ocupacao status
+       ,l.sn_alta_medica status1  
+  from dbamv.paciente  pa,
+       dbamv.atendime  a,
+       dbamv.convenio  c,
+       dbamv.leito     l,
+       dbamv.prestador p,
+       dbamv.unid_int  u
+ where u.cd_unid_int = l.cd_unid_int
+   and a.cd_paciente = pa.cd_paciente
+   and a.cd_convenio = c.cd_convenio
+   and a.cd_prestador = p.cd_prestador
+   and a.tp_atendimento = 'I'
+   and l.tp_situacao = 'A'
+   and u.cd_unid_int = #unidadedeinternacao#
+   and a.dt_alta is null
+   and a.cd_leito = l.cd_leito
+ order by 1 asc
+)
